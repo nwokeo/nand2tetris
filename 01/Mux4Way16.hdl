@@ -11,10 +11,37 @@
  *       d if sel == 11
  */
 
+/*
+    Mux16(a=a,b=b,sel=sel[0],out=out1);
+    Mux16(a=b,b=c,sel=sel[0],out=out2);
+    Mux16(a=c,b=d,sel=sel[0],out=out3);
+
+    Mux16(a=out1,b=out2,sel=sel[0],out=out4);
+    Mux16(a=out2,b=out3,sel=sel[0],out=out5);
+    
+    Mux16(a=out4,b=out5,sel=sel[0],out=out6);
+    
+    Mux16(a=a,b=b,sel=sel[1],out=out7);
+    Mux16(a=b,b=c,sel=sel[1],out=out8);
+    Mux16(a=c,b=d,sel=sel[1],out=out9);
+
+    Mux16(a=out7,b=out8,sel=sel[1],out=out10);
+    Mux16(a=out8,b=out9,sel=sel[1],out=out11);
+    
+    Mux16(a=out10,b=out11,sel=sel[1],out=out12);  
+    
+    Mux16(a=out6,b=out12,sel=sel[0],out=out13);  
+    Mux16(a=out6,b=out12,sel=sel[1],out=out);  
+*/
+
 CHIP Mux4Way16 {
     IN a[16], b[16], c[16], d[16], sel[2];
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+    Mux16(a=a, b=b, sel=sel[0], out=AorBSelected);
+    Mux16(a=c, b=d, sel=sel[0], out=CorDSelected);
+    Mux16(a=AorBSelected, b=CorDSelected, sel=sel[1], out=out);
+
+
 }
