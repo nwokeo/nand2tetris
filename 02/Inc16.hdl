@@ -13,5 +13,27 @@ CHIP Inc16 {
     OUT out[16];
 
     PARTS:
-   // Put you code here:
+    Not(in=in[0], out=notin);
+    Or(a=notin, b=in[0], out=one);
+    Not(in=one, out=zero);
+    
+    //first digit
+    HalfAdder(a=in[0], b=one, sum=out[0], carry=ca1);
+
+    //second digit
+    FullAdder(a=in[1], b=zero, c=ca1, sum=out[1], carry=ca2);
+    FullAdder(a=in[2], b=zero, c=ca2, sum=out[2], carry=ca3);
+    FullAdder(a=in[3], b=zero, c=ca3, sum=out[3], carry=ca4);
+    FullAdder(a=in[4], b=zero, c=ca4, sum=out[4], carry=ca5);
+    FullAdder(a=in[5], b=zero, c=ca5, sum=out[5], carry=ca6);
+    FullAdder(a=in[6], b=zero, c=ca6, sum=out[6], carry=ca7);
+    FullAdder(a=in[7], b=zero, c=ca7, sum=out[7], carry=ca8);
+    FullAdder(a=in[8], b=zero, c=ca8, sum=out[8], carry=ca9);
+    FullAdder(a=in[9], b=zero, c=ca9, sum=out[9], carry=ca10);
+    FullAdder(a=in[10], b=zero, c=ca10, sum=out[10], carry=ca11);
+    FullAdder(a=in[11], b=zero, c=ca11, sum=out[11], carry=ca12);
+    FullAdder(a=in[12], b=zero, c=ca12, sum=out[12], carry=ca13);
+    FullAdder(a=in[13], b=zero, c=ca13, sum=out[13], carry=ca14);
+    FullAdder(a=in[14], b=zero, c=ca14, sum=out[14], carry=ca15);
+    FullAdder(a=in[15], b=zero, c=ca15, sum=out[15]);
 }
