@@ -26,6 +26,21 @@
 // if (out == 0) set zr = 1
 // if (out < 0) set ng = 1
 
+//Your first step will likely be to create a
+//logic circuit that manipulates a 16-bit input according to the nx and zx control bits
+//(i.e., the circuit should conditionally zero and negate the 16-bit input). This logic can
+//be used to manipulate the x and y inputs, as well as the out output. 
+
+//Chips for bitwise And-ing and addition have already been built in this and in the previous chapter.
+
+//Thus, what remains is to build logic that chooses between them according to the f control bit. 
+
+//Finally, you will need to build logic that integrates all the other chips into the overall ALU.
+
+//The constants true and false may also be used as buses, in which case the
+//required width is deduced implicitly from the context of the connection.
+
+
 CHIP ALU {
     IN  
         x[16], y[16],  // 16-bit inputs        
@@ -42,5 +57,187 @@ CHIP ALU {
         ng; // 1 if (out < 0),  0 otherwise
 
     PARTS:
-   // Put you code here:
+        //zx
+        Not(in=zx, out=notzx);
+        And(a=x[0],b=notzx,out=xin-0);
+        And(a=x[1],b=notzx,out=xin-1);
+        And(a=x[2],b=notzx,out=xin-2);
+        And(a=x[3],b=notzx,out=xin-3);
+        And(a=x[4],b=notzx,out=xin-4);
+        And(a=x[5],b=notzx,out=xin-5);
+        And(a=x[6],b=notzx,out=xin-6);
+        And(a=x[7],b=notzx,out=xin-7);
+        And(a=x[8],b=notzx,out=xin-8);
+        And(a=x[9],b=notzx,out=xin-9);
+        And(a=x[10],b=notzx,out=xin-10);
+        And(a=x[11],b=notzx,out=xin-11);
+        And(a=x[12],b=notzx,out=xin-12);
+        And(a=x[13],b=notzx,out=xin-13);
+        And(a=x[14],b=notzx,out=xin-14);
+        And(a=x[15],b=notzx,out=xin-15);
+        
+        //nx
+        Xor(a=xin-0,b=nx,out=xin2-0);
+        Xor(a=xin-1,b=nx,out=xin2-1);
+        Xor(a=xin-2,b=nx,out=xin2-2);
+        Xor(a=xin-3,b=nx,out=xin2-3);
+        Xor(a=xin-4,b=nx,out=xin2-4);
+        Xor(a=xin-5,b=nx,out=xin2-5);
+        Xor(a=xin-6,b=nx,out=xin2-6);
+        Xor(a=xin-7,b=nx,out=xin2-7);
+        Xor(a=xin-8,b=nx,out=xin2-8);
+        Xor(a=xin-9,b=nx,out=xin2-9);
+        Xor(a=xin-10,b=nx,out=xin2-10);
+        Xor(a=xin-11,b=nx,out=xin2-11);
+        Xor(a=xin-12,b=nx,out=xin2-12);
+        Xor(a=xin-13,b=nx,out=xin2-13);
+        Xor(a=xin-14,b=nx,out=xin2-14);
+        Xor(a=xin-15,b=nx,out=xin2-15);
+        
+        //zy
+        Not(in=zy, out=notzy);
+        And(a=y[0],b=notzy,out=yin-0);
+        And(a=y[1],b=notzy,out=yin-1);
+        And(a=y[2],b=notzy,out=yin-2);
+        And(a=y[3],b=notzy,out=yin-3);
+        And(a=y[4],b=notzy,out=yin-4);
+        And(a=y[5],b=notzy,out=yin-5);
+        And(a=y[6],b=notzy,out=yin-6);
+        And(a=y[7],b=notzy,out=yin-7);
+        And(a=y[8],b=notzy,out=yin-8);
+        And(a=y[9],b=notzy,out=yin-9);
+        And(a=y[10],b=notzy,out=yin-10);
+        And(a=y[11],b=notzy,out=yin-11);
+        And(a=y[12],b=notzy,out=yin-12);
+        And(a=y[13],b=notzy,out=yin-13);
+        And(a=y[14],b=notzy,out=yin-14);
+        And(a=y[15],b=notzy,out=yin-15);
+        
+        //ny
+        Xor(a=yin-0,b=ny,out=yin2-0);
+        Xor(a=yin-1,b=ny,out=yin2-1);
+        Xor(a=yin-2,b=ny,out=yin2-2);
+        Xor(a=yin-3,b=ny,out=yin2-3);
+        Xor(a=yin-4,b=ny,out=yin2-4);
+        Xor(a=yin-5,b=ny,out=yin2-5);
+        Xor(a=yin-6,b=ny,out=yin2-6);
+        Xor(a=yin-7,b=ny,out=yin2-7);
+        Xor(a=yin-8,b=ny,out=yin2-8);
+        Xor(a=yin-9,b=ny,out=yin2-9);
+        Xor(a=yin-10,b=ny,out=yin2-10);
+        Xor(a=yin-11,b=ny,out=yin2-11);
+        Xor(a=yin-12,b=ny,out=yin2-12);
+        Xor(a=yin-13,b=ny,out=yin2-13);
+        Xor(a=yin-14,b=ny,out=yin2-14);
+        Xor(a=yin-15,b=ny,out=yin2-15);
+        
+        //f
+        Not(in=f, out=notf);
+        //And
+        And(a=xin2-0, b=notf, out=andoutx-0);
+        And(a=yin2-0, b=notf, out=andouty-0);
+        And(a=andoutx-0,b=andouty-0,out=out[0]);
+        
+        And(a=xin2-1, b=notf, out=andoutx-1);
+        And(a=yin2-1, b=notf, out=andouty-1);
+        And(a=andoutx-1,b=andouty-1,out=out[1]);
+        And(a=xin2-2, b=notf, out=andoutx-2);
+        And(a=yin2-2, b=notf, out=andouty-2);
+        And(a=andoutx-2,b=andouty-2,out=andout-2);
+        And(a=xin2-3, b=notf, out=andoutx-3);
+        And(a=yin2-3, b=notf, out=andouty-3);
+        And(a=andoutx-3,b=andouty-3,out=andout-3);
+        And(a=xin2-4, b=notf, out=andoutx-4);
+        And(a=yin2-4, b=notf, out=andouty-4);
+        And(a=andoutx-4,b=andouty-4,out=andout-4);
+        And(a=xin2-5, b=notf, out=andoutx-5);
+        And(a=yin2-5, b=notf, out=andouty-5);
+        And(a=andoutx-5,b=andouty-5,out=andout-5);
+        And(a=xin2-6, b=notf, out=andoutx-6);
+        And(a=yin2-6, b=notf, out=andouty-6);
+        And(a=andoutx-6,b=andouty-6,out=andout-6);
+        And(a=xin2-7, b=notf, out=andoutx-7);
+        And(a=yin2-7, b=notf, out=andouty-7);
+        And(a=andoutx-7,b=andouty-7,out=andout-7);
+        And(a=xin2-8, b=notf, out=andoutx-8);
+        And(a=yin2-8, b=notf, out=andouty-8);
+        And(a=andoutx-8,b=andouty-8,out=andout-8);
+        And(a=xin2-9, b=notf, out=andoutx-9);
+        And(a=yin2-9, b=notf, out=andouty-9);
+        And(a=andoutx-9,b=andouty-9,out=andout-9);
+        And(a=xin2-10, b=notf, out=andoutx-10);
+        And(a=yin2-10, b=notf, out=andouty-10);
+        And(a=andoutx-10,b=andouty-10,out=andout-10);
+        And(a=xin2-11, b=notf, out=andoutx-11);
+        And(a=yin2-11, b=notf, out=andouty-11);
+        And(a=andoutx-11,b=andouty-11,out=andout-11);
+        And(a=xin2-12, b=notf, out=andoutx-12);
+        And(a=yin2-12, b=notf, out=andouty-12);
+        And(a=andoutx-12,b=andouty-12,out=andout-12);
+        And(a=xin2-13, b=notf, out=andoutx-13);
+        And(a=yin2-13, b=notf, out=andouty-13);
+        And(a=andoutx-13,b=andouty-13,out=andout-13);
+        And(a=xin2-14, b=notf, out=andoutx-14);
+        And(a=yin2-14, b=notf, out=andouty-14);
+        And(a=andoutx-14,b=andouty-14,out=andout-14);
+        And(a=xin2-15, b=notf, out=andoutx-15);
+        And(a=yin2-15, b=notf, out=andouty-15);
+        And(a=andoutx-15,b=andouty-15,out=andout-15);
+
+        //Add
+        And(a=xin2-0, b=f, out=addoutx-0);
+        And(a=yin2-0, b=f, out=addouty-0);
+        And(a=xin2-1, b=f, out=addoutx-1);
+        And(a=yin2-1, b=f, out=addouty-1);
+        And(a=xin2-2, b=f, out=addoutx-2);
+        And(a=yin2-2, b=f, out=addouty-2);
+        And(a=xin2-3, b=f, out=addoutx-3);
+        And(a=yin2-3, b=f, out=addouty-3);
+        And(a=xin2-4, b=f, out=addoutx-4);
+        And(a=yin2-4, b=f, out=addouty-4);
+        And(a=xin2-5, b=f, out=addoutx-5);
+        And(a=yin2-5, b=f, out=addouty-5);
+        And(a=xin2-6, b=f, out=addoutx-6);
+        And(a=yin2-6, b=f, out=addouty-6);
+        And(a=xin2-7, b=f, out=addoutx-7);
+        And(a=yin2-7, b=f, out=addouty-7);
+        And(a=xin2-8, b=f, out=addoutx-8);
+        And(a=yin2-8, b=f, out=addouty-8);
+        And(a=xin2-9, b=f, out=addoutx-9);
+        And(a=yin2-9, b=f, out=addouty-9);
+        And(a=xin2-10, b=f, out=addoutx-10);
+        And(a=yin2-10, b=f, out=addouty-10);
+        And(a=xin2-11, b=f, out=addoutx-11);
+        And(a=yin2-11, b=f, out=addouty-11);
+        And(a=xin2-12, b=f, out=addoutx-12);
+        And(a=yin2-12, b=f, out=addouty-12);
+        And(a=xin2-13, b=f, out=addoutx-13);
+        And(a=yin2-13, b=f, out=addouty-13);
+        And(a=xin2-14, b=f, out=addoutx-14);
+        And(a=yin2-14, b=f, out=addouty-14);
+        And(a=xin2-15, b=f, out=addoutx-15);
+        And(a=yin2-15, b=f, out=addouty-15);
+        
+        //first digit
+        HalfAdder(a=addoutx-0, b=addouty-0, sum=out[0], carry=ca1);
+    
+        //second digit
+        FullAdder(a=addoutx-1, b=addouty-1, c=ca1, sum=out[1], carry=ca2);
+        FullAdder(a=addoutx-2, b=addouty-2, c=ca2, sum=out[2], carry=ca3);
+        FullAdder(a=addoutx-3, b=addouty-3, c=ca3, sum=out[3], carry=ca4);
+        FullAdder(a=addoutx-4, b=addouty-4, c=ca4, sum=out[4], carry=ca5);
+        FullAdder(a=addoutx-5, b=addouty-5, c=ca5, sum=out[5], carry=ca6);
+        FullAdder(a=addoutx-6, b=addouty-6, c=ca6, sum=out[6], carry=ca7);
+        FullAdder(a=addoutx-7, b=addouty-7, c=ca7, sum=out[7], carry=ca8);
+        FullAdder(a=addoutx-8, b=addouty-8, c=ca8, sum=out[8], carry=ca9);
+        FullAdder(a=addoutx-9, b=addouty-9, c=ca9, sum=out[9], carry=ca10);
+        FullAdder(a=addoutx-10, b=addouty-10, c=ca10, sum=out[10], carry=ca11);
+        FullAdder(a=addoutx-11, b=addouty-11, c=ca11, sum=out[11], carry=ca12);
+        FullAdder(a=addoutx-12, b=addouty-12, c=ca12, sum=out[12], carry=ca13);
+        FullAdder(a=addoutx-13, b=addouty-13, c=ca13, sum=out[13], carry=ca14);
+        FullAdder(a=addoutx-14, b=addouty-14, c=ca14, sum=out[14], carry=ca15);
+        FullAdder(a=addoutx-15, b=addouty-15, c=ca15, sum=out[15]);
+    
+        //no
+        //Not16(in=, out=);
 }

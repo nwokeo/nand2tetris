@@ -13,6 +13,7 @@ CHIP Inc16 {
     OUT out[16];
 
     PARTS:
+    //or one = true, zero = false
     Not(in=in[0], out=notin);
     Or(a=notin, b=in[0], out=one);
     Not(in=one, out=zero);
