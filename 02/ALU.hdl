@@ -26,20 +26,6 @@
 // if (out == 0) set zr = 1
 // if (out < 0) set ng = 1
 
-//Your first step will likely be to create a
-//logic circuit that manipulates a 16-bit input according to the nx and zx control bits
-//(i.e., the circuit should conditionally zero and negate the 16-bit input). This logic can
-//be used to manipulate the x and y inputs, as well as the out output. 
-
-//Chips for bitwise And-ing and addition have already been built in this and in the previous chapter.
-
-//Thus, what remains is to build logic that chooses between them according to the f control bit. 
-
-//Finally, you will need to build logic that integrates all the other chips into the overall ALU.
-
-//The constants true and false may also be used as buses, in which case the
-//required width is deduced implicitly from the context of the connection.
-
 
 CHIP ALU {
     IN  
@@ -84,9 +70,9 @@ CHIP ALU {
         Not16(in=nout, out=noout);
         Mux16(a=nout, b=noout, sel=no, out=out);
         
-        Mux16(a=nout, b=noout, sel=no, out[0..7]=out2); //feed to or8
-        Mux16(a=nout, b=noout, sel=no, out[8..15]=out3); //feed to or8
-        Mux16(a=nout, b=noout, sel=no, out[15]=out4); //feed to or8
+        Mux16(a=nout, b=noout, sel=no, out[0..7]=out2); //feed to zr
+        Mux16(a=nout, b=noout, sel=no, out[8..15]=out3); //feed to zr
+        Mux16(a=nout, b=noout, sel=no, out[15]=out4); //feed to ng
                 
     //zr
         Or8Way(in=out2, out=zrout1);
