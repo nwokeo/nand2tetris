@@ -58,78 +58,35 @@ CHIP ALU {
 
     PARTS:
         //zx
-        Not(in=zx, out=notzx);
-        And(a=x[0],b=notzx,out=xin-0);
-        And(a=x[1],b=notzx,out=xin-1);
-        And(a=x[2],b=notzx,out=xin-2);
-        And(a=x[3],b=notzx,out=xin-3);
-        And(a=x[4],b=notzx,out=xin-4);
-        And(a=x[5],b=notzx,out=xin-5);
-        And(a=x[6],b=notzx,out=xin-6);
-        And(a=x[7],b=notzx,out=xin-7);
-        And(a=x[8],b=notzx,out=xin-8);
-        And(a=x[9],b=notzx,out=xin-9);
-        And(a=x[10],b=notzx,out=xin-10);
-        And(a=x[11],b=notzx,out=xin-11);
-        And(a=x[12],b=notzx,out=xin-12);
-        And(a=x[13],b=notzx,out=xin-13);
-        And(a=x[14],b=notzx,out=xin-14);
-        And(a=x[15],b=notzx,out=xin-15);
+        Mux(a=x[0],b=false,sel=zx,out=xin-0);
+        Mux(a=x[1],b=false,sel=zx,out=xin-1);
+        Mux(a=x[2],b=false,sel=zx,out=xin-2);
+        Mux(a=x[3],b=false,sel=zx,out=xin-3);
+        Mux(a=x[4],b=false,sel=zx,out=xin-4);
+        Mux(a=x[5],b=false,sel=zx,out=xin-5);
+        Mux(a=x[6],b=false,sel=zx,out=xin-6);
+        Mux(a=x[7],b=false,sel=zx,out=xin-7);
+        Mux(a=x[8],b=false,sel=zx,out=xin-8);
+        Mux(a=x[9],b=false,sel=zx,out=xin-9);
+        Mux(a=x[10],b=false,sel=zx,out=xin-10);
+        Mux(a=x[11],b=false,sel=zx,out=xin-11);
+        Mux(a=x[12],b=false,sel=zx,out=xin-12);
+        Mux(a=x[13],b=false,sel=zx,out=xin-13);
+        Mux(a=x[14],b=false,sel=zx,out=xin-14);
+        Mux(a=x[15],b=false,sel=zx,out=xin-15);
         
         //nx
-        Xor(a=xin-0,b=nx,out=xin2-0);
-        Xor(a=xin-1,b=nx,out=xin2-1);
-        Xor(a=xin-2,b=nx,out=xin2-2);
-        Xor(a=xin-3,b=nx,out=xin2-3);
-        Xor(a=xin-4,b=nx,out=xin2-4);
-        Xor(a=xin-5,b=nx,out=xin2-5);
-        Xor(a=xin-6,b=nx,out=xin2-6);
-        Xor(a=xin-7,b=nx,out=xin2-7);
-        Xor(a=xin-8,b=nx,out=xin2-8);
-        Xor(a=xin-9,b=nx,out=xin2-9);
-        Xor(a=xin-10,b=nx,out=xin2-10);
-        Xor(a=xin-11,b=nx,out=xin2-11);
-        Xor(a=xin-12,b=nx,out=xin2-12);
-        Xor(a=xin-13,b=nx,out=xin2-13);
-        Xor(a=xin-14,b=nx,out=xin2-14);
-        Xor(a=xin-15,b=nx,out=xin2-15);
+        Not16 (in=x, out=notx);
+        //Mux16 (a=x, b=notx, sel=nx, out=nxmux);     
         
         //zy
-        Not(in=zy, out=notzy);
-        And(a=y[0],b=notzy,out=yin-0);
-        And(a=y[1],b=notzy,out=yin-1);
-        And(a=y[2],b=notzy,out=yin-2);
-        And(a=y[3],b=notzy,out=yin-3);
-        And(a=y[4],b=notzy,out=yin-4);
-        And(a=y[5],b=notzy,out=yin-5);
-        And(a=y[6],b=notzy,out=yin-6);
-        And(a=y[7],b=notzy,out=yin-7);
-        And(a=y[8],b=notzy,out=yin-8);
-        And(a=y[9],b=notzy,out=yin-9);
-        And(a=y[10],b=notzy,out=yin-10);
-        And(a=y[11],b=notzy,out=yin-11);
-        And(a=y[12],b=notzy,out=yin-12);
-        And(a=y[13],b=notzy,out=yin-13);
-        And(a=y[14],b=notzy,out=yin-14);
-        And(a=y[15],b=notzy,out=yin-15);
+
         
         //ny
-        Xor(a=yin-0,b=ny,out=yin2-0);
-        Xor(a=yin-1,b=ny,out=yin2-1);
-        Xor(a=yin-2,b=ny,out=yin2-2);
-        Xor(a=yin-3,b=ny,out=yin2-3);
-        Xor(a=yin-4,b=ny,out=yin2-4);
-        Xor(a=yin-5,b=ny,out=yin2-5);
-        Xor(a=yin-6,b=ny,out=yin2-6);
-        Xor(a=yin-7,b=ny,out=yin2-7);
-        Xor(a=yin-8,b=ny,out=yin2-8);
-        Xor(a=yin-9,b=ny,out=yin2-9);
-        Xor(a=yin-10,b=ny,out=yin2-10);
-        Xor(a=yin-11,b=ny,out=yin2-11);
-        Xor(a=yin-12,b=ny,out=yin2-12);
-        Xor(a=yin-13,b=ny,out=yin2-13);
-        Xor(a=yin-14,b=ny,out=yin2-14);
-        Xor(a=yin-15,b=ny,out=yin2-15);
+        Not16 (in=y, out=noty);
+        //Mux16 (a=y, b=noty, sel=ny, out=nymux);
+        
+        Mux4Way16(a=, b=notx, c=, d=noty, sel=);
         
         //f
         Not(in=f, out=notf);
@@ -240,4 +197,7 @@ CHIP ALU {
     
         //no
         //Not16(in=, out=);
+        
+
+    
 }
