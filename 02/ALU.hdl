@@ -57,147 +57,43 @@ CHIP ALU {
         ng; // 1 if (out < 0),  0 otherwise
 
     PARTS:
-        //zx
-        Mux(a=x[0],b=false,sel=zx,out=xin-0);
-        Mux(a=x[1],b=false,sel=zx,out=xin-1);
-        Mux(a=x[2],b=false,sel=zx,out=xin-2);
-        Mux(a=x[3],b=false,sel=zx,out=xin-3);
-        Mux(a=x[4],b=false,sel=zx,out=xin-4);
-        Mux(a=x[5],b=false,sel=zx,out=xin-5);
-        Mux(a=x[6],b=false,sel=zx,out=xin-6);
-        Mux(a=x[7],b=false,sel=zx,out=xin-7);
-        Mux(a=x[8],b=false,sel=zx,out=xin-8);
-        Mux(a=x[9],b=false,sel=zx,out=xin-9);
-        Mux(a=x[10],b=false,sel=zx,out=xin-10);
-        Mux(a=x[11],b=false,sel=zx,out=xin-11);
-        Mux(a=x[12],b=false,sel=zx,out=xin-12);
-        Mux(a=x[13],b=false,sel=zx,out=xin-13);
-        Mux(a=x[14],b=false,sel=zx,out=xin-14);
-        Mux(a=x[15],b=false,sel=zx,out=xin-15);
-        
-        //nx
-        Not16 (in=x, out=notx);
-        //Mux16 (a=x, b=notx, sel=nx, out=nxmux);     
-        
-        //zy
+    //zx
+        Mux16(a=x, b=false, sel=zx, out=xout);
 
+    //nx
+        Not16(in=xout, out=notxout);
+        Mux16(a=xout, b=notxout, sel=nx, out=xout1);
         
-        //ny
-        Not16 (in=y, out=noty);
-        //Mux16 (a=y, b=noty, sel=ny, out=nymux);
-        
-        Mux4Way16(a=, b=notx, c=, d=noty, sel=);
-        
-        //f
-        Not(in=f, out=notf);
-        //And
-        And(a=xin2-0, b=notf, out=andoutx-0);
-        And(a=yin2-0, b=notf, out=andouty-0);
-        And(a=andoutx-0,b=andouty-0,out=out[0]);
-        
-        And(a=xin2-1, b=notf, out=andoutx-1);
-        And(a=yin2-1, b=notf, out=andouty-1);
-        And(a=andoutx-1,b=andouty-1,out=out[1]);
-        And(a=xin2-2, b=notf, out=andoutx-2);
-        And(a=yin2-2, b=notf, out=andouty-2);
-        And(a=andoutx-2,b=andouty-2,out=andout-2);
-        And(a=xin2-3, b=notf, out=andoutx-3);
-        And(a=yin2-3, b=notf, out=andouty-3);
-        And(a=andoutx-3,b=andouty-3,out=andout-3);
-        And(a=xin2-4, b=notf, out=andoutx-4);
-        And(a=yin2-4, b=notf, out=andouty-4);
-        And(a=andoutx-4,b=andouty-4,out=andout-4);
-        And(a=xin2-5, b=notf, out=andoutx-5);
-        And(a=yin2-5, b=notf, out=andouty-5);
-        And(a=andoutx-5,b=andouty-5,out=andout-5);
-        And(a=xin2-6, b=notf, out=andoutx-6);
-        And(a=yin2-6, b=notf, out=andouty-6);
-        And(a=andoutx-6,b=andouty-6,out=andout-6);
-        And(a=xin2-7, b=notf, out=andoutx-7);
-        And(a=yin2-7, b=notf, out=andouty-7);
-        And(a=andoutx-7,b=andouty-7,out=andout-7);
-        And(a=xin2-8, b=notf, out=andoutx-8);
-        And(a=yin2-8, b=notf, out=andouty-8);
-        And(a=andoutx-8,b=andouty-8,out=andout-8);
-        And(a=xin2-9, b=notf, out=andoutx-9);
-        And(a=yin2-9, b=notf, out=andouty-9);
-        And(a=andoutx-9,b=andouty-9,out=andout-9);
-        And(a=xin2-10, b=notf, out=andoutx-10);
-        And(a=yin2-10, b=notf, out=andouty-10);
-        And(a=andoutx-10,b=andouty-10,out=andout-10);
-        And(a=xin2-11, b=notf, out=andoutx-11);
-        And(a=yin2-11, b=notf, out=andouty-11);
-        And(a=andoutx-11,b=andouty-11,out=andout-11);
-        And(a=xin2-12, b=notf, out=andoutx-12);
-        And(a=yin2-12, b=notf, out=andouty-12);
-        And(a=andoutx-12,b=andouty-12,out=andout-12);
-        And(a=xin2-13, b=notf, out=andoutx-13);
-        And(a=yin2-13, b=notf, out=andouty-13);
-        And(a=andoutx-13,b=andouty-13,out=andout-13);
-        And(a=xin2-14, b=notf, out=andoutx-14);
-        And(a=yin2-14, b=notf, out=andouty-14);
-        And(a=andoutx-14,b=andouty-14,out=andout-14);
-        And(a=xin2-15, b=notf, out=andoutx-15);
-        And(a=yin2-15, b=notf, out=andouty-15);
-        And(a=andoutx-15,b=andouty-15,out=andout-15);
+    //zy
+        Mux16(a=y, b=false, sel=zy, out=yout);
 
-        //Add
-        And(a=xin2-0, b=f, out=addoutx-0);
-        And(a=yin2-0, b=f, out=addouty-0);
-        And(a=xin2-1, b=f, out=addoutx-1);
-        And(a=yin2-1, b=f, out=addouty-1);
-        And(a=xin2-2, b=f, out=addoutx-2);
-        And(a=yin2-2, b=f, out=addouty-2);
-        And(a=xin2-3, b=f, out=addoutx-3);
-        And(a=yin2-3, b=f, out=addouty-3);
-        And(a=xin2-4, b=f, out=addoutx-4);
-        And(a=yin2-4, b=f, out=addouty-4);
-        And(a=xin2-5, b=f, out=addoutx-5);
-        And(a=yin2-5, b=f, out=addouty-5);
-        And(a=xin2-6, b=f, out=addoutx-6);
-        And(a=yin2-6, b=f, out=addouty-6);
-        And(a=xin2-7, b=f, out=addoutx-7);
-        And(a=yin2-7, b=f, out=addouty-7);
-        And(a=xin2-8, b=f, out=addoutx-8);
-        And(a=yin2-8, b=f, out=addouty-8);
-        And(a=xin2-9, b=f, out=addoutx-9);
-        And(a=yin2-9, b=f, out=addouty-9);
-        And(a=xin2-10, b=f, out=addoutx-10);
-        And(a=yin2-10, b=f, out=addouty-10);
-        And(a=xin2-11, b=f, out=addoutx-11);
-        And(a=yin2-11, b=f, out=addouty-11);
-        And(a=xin2-12, b=f, out=addoutx-12);
-        And(a=yin2-12, b=f, out=addouty-12);
-        And(a=xin2-13, b=f, out=addoutx-13);
-        And(a=yin2-13, b=f, out=addouty-13);
-        And(a=xin2-14, b=f, out=addoutx-14);
-        And(a=yin2-14, b=f, out=addouty-14);
-        And(a=xin2-15, b=f, out=addoutx-15);
-        And(a=yin2-15, b=f, out=addouty-15);
+    //ny
+        Not16(in=yout, out=notyout);
+        Mux16(a=yout, b=notyout, sel=ny, out=yout1);
         
-        //first digit
-        HalfAdder(a=addoutx-0, b=addouty-0, sum=out[0], carry=ca1);
-    
-        //second digit
-        FullAdder(a=addoutx-1, b=addouty-1, c=ca1, sum=out[1], carry=ca2);
-        FullAdder(a=addoutx-2, b=addouty-2, c=ca2, sum=out[2], carry=ca3);
-        FullAdder(a=addoutx-3, b=addouty-3, c=ca3, sum=out[3], carry=ca4);
-        FullAdder(a=addoutx-4, b=addouty-4, c=ca4, sum=out[4], carry=ca5);
-        FullAdder(a=addoutx-5, b=addouty-5, c=ca5, sum=out[5], carry=ca6);
-        FullAdder(a=addoutx-6, b=addouty-6, c=ca6, sum=out[6], carry=ca7);
-        FullAdder(a=addoutx-7, b=addouty-7, c=ca7, sum=out[7], carry=ca8);
-        FullAdder(a=addoutx-8, b=addouty-8, c=ca8, sum=out[8], carry=ca9);
-        FullAdder(a=addoutx-9, b=addouty-9, c=ca9, sum=out[9], carry=ca10);
-        FullAdder(a=addoutx-10, b=addouty-10, c=ca10, sum=out[10], carry=ca11);
-        FullAdder(a=addoutx-11, b=addouty-11, c=ca11, sum=out[11], carry=ca12);
-        FullAdder(a=addoutx-12, b=addouty-12, c=ca12, sum=out[12], carry=ca13);
-        FullAdder(a=addoutx-13, b=addouty-13, c=ca13, sum=out[13], carry=ca14);
-        FullAdder(a=addoutx-14, b=addouty-14, c=ca14, sum=out[14], carry=ca15);
-        FullAdder(a=addoutx-15, b=addouty-15, c=ca15, sum=out[15]);
-    
-        //no
-        //Not16(in=, out=);
+    //f
+        //and
+        And16(a=xout1, b=yout1, out=andout);
+            
+        //add
+        Add16(a=xout1, b=yout1, out=addout);
+            
+        Mux16(a=andout, b=addout, sel=f, out=nout);
         
-
+    //no
+        Not16(in=nout, out=noout);
+        Mux16(a=nout, b=noout, sel=no, out=out);
+        
+        Mux16(a=nout, b=noout, sel=no, out[0..7]=out2); //feed to or8
+        Mux16(a=nout, b=noout, sel=no, out[8..15]=out3); //feed to or8
+        Mux16(a=nout, b=noout, sel=no, out[15]=out4); //feed to or8
+                
+    //zr
+        Or8Way(in=out2, out=zrout1);
+        Or8Way(in=out3, out=zrout2);
+        Or(a=zrout1, b=zrout2, out=zrout3);
+        Not(in=zrout3, out=zr);
     
+    //ng
+        And(a=out4, b=out4, out=ng);
 }
