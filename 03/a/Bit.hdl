@@ -14,8 +14,13 @@ CHIP Bit {
     OUT out;
 
     PARTS:
-    DFF(in=in, out=dffout);
     
-    Mux(a=dffout, b=in, sel=load, out=muxout);
-    DFF(in=muxout, out=out);
+    //It makes no difference what order the parts are put into a circuit board. 
+    //As long as all the parts get placed and connected together correctly, the circuit board will function.
+
+    Mux(a=dout, b=in, sel=load, out=mout);
+    
+	DFF(in=mout, out=dout);
+	
+	Or(a=dout, b=dout, out=out);
 }
